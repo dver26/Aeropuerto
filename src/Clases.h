@@ -18,8 +18,15 @@ public:
 class AeropuertoPublico : public Aeropuerto
 {
 public:
-	std::vector<std::string> patrocinadores;
+	int subvencion;
 	AeropuertoPublico(std::string nombre, std::string ciudad, std::string pais);
+};
+
+class AeropuertoPrivado : public Aeropuerto
+{
+public:
+	std::vector<std::string> patrocinadores;
+	AeropuertoPrivado(std::string nombre, std::string ciudad, std::string pais);
 };
 
 class Compania
