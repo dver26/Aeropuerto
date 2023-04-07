@@ -40,8 +40,9 @@ public:
 class Vuelo
 {
 public:
+	int id;
 	std::string origen, destino;
-	int precio, maxPas, nPas, id;
+	int precio, maxPas, nPas;
 	std::vector<Pasajero> pasajeros;
 	Vuelo(int id, std::string origen, std::string destino, int precio, int maxPas);
 };
