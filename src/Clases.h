@@ -1,56 +1,13 @@
 #pragma once
 #include <iostream>
-#include <string>
-#include <vector>
-
-
-class Aeropuerto
-{
-public:
-	std::vector<Compania> companias;
-	std::string nombre;
-	std::string ciudad;
-	std::string pais;
-
-	Aeropuerto(std::string nombre, std::string ciudad, std::string pais);
-};
-
-class AeropuertoPublico : public Aeropuerto
-{
-public:
-	int subvencion;
-	AeropuertoPublico(std::string nombre, std::string ciudad, std::string pais);
-};
-
-class AeropuertoPrivado : public Aeropuerto
-{
-public:
-	std::vector<std::string> patrocinadores;
-	AeropuertoPrivado(std::string nombre, std::string ciudad, std::string pais);
-};
-
-class Compania
-{
-public:
-	std::string nombre;
-	std::vector<Vuelo> vuelos;
-	Compania(std::string nombre);
-};
-
-class Vuelo
-{
-public:
-	int id;
-	std::string origen, destino;
-	int precio, maxPas, nPas;
-	std::vector<Pasajero> pasajeros;
-	Vuelo(int id, std::string origen, std::string destino, int precio, int maxPas);
-};
 
 class Pasajero
 {
 public:
-	std::string nombre, nacionalidad;
+	std::string name, nacionalidad;
 	int nPasaporte;
-	Pasajero(std::string nombre, std::string nacionalidad, int nPasaporte);
+
+	Pasajero();
+	Pasajero(std::string name, std::string nacionalidad, int nPasaporte)
+		: name(name), nacionalidad(nacionalidad), nPasaporte(nPasaporte);
 };
