@@ -18,8 +18,7 @@ public:
 	int id, precio, maxPasajeros, nPasajeros;
 	std::string ciudadOrigen, ciudadDestino;
 
-	Vuelo(int id, int precio, int maxPasajeros, std::string ciudadOrigen, std::string ciudadDestino)
-		: id(id), precio(precio), maxPasajeros(maxPasajeros), ciudadOrigen(ciudadOrigen), ciudadDestino(ciudadDestino) {}
+	Vuelo(int id, int precio, int maxPasajeros, std::string ciudadOrigen, std::string ciudadDestino);
 };
 
 class Compania
