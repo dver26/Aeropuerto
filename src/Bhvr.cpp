@@ -5,7 +5,7 @@ void bhvr::PrintAirports(std::vector<Aeropuerto>& aeropuertos)
 {
 	for (auto& a : aeropuertos)
 	{
-		std::cout << "Hola" << std::endl;
+		std::cout << a << std::endl;
 	}
 }
 
