@@ -2,11 +2,16 @@
 #include "Clases.h"
 #include "Bhvr.h"
 
-static std::vector<Aeropuerto> aeropuertos;
+static std::vector<Aeropuerto*> aeropuertos;
+static std::vector<Compania> companias;
+static std::vector<Vuelo> vuelos;
+static std::vector<Pasajero> pasajeros;
 
 void Opciones()
 {
-	std::cout << "1. Ver aeropuertos" << std::endl;
+	std::cout << "\n\n1. Añadir\n"
+		<< "2. Ver aeropuertos" 
+		<< "> ";
 }
 
 int main()
@@ -15,7 +20,20 @@ int main()
 	do {
 		Opciones();
 		std::cin >> op;
-		std::cout << op;
+
+		switch (op)
+		{
+		case 1:
+			bhvr::Anadir(aeropuertos, companias, vuelos, pasajeros);
+			break;
+		case 2:
+			bhvr::PrintAirports(aeropuertos);
+			break;
+		default:
+			std::cout << "Lo siento, número incorrecto" << std::endl;
+		}
+
 	} while (op != 0);
+
 	std::cin.get();
 }

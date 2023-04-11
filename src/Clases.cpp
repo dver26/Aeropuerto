@@ -24,12 +24,27 @@ Compania::Compania(std::string nombre)
 Aeropuerto::Aeropuerto(std::string nombre, std::string ciudad, std::string pais)
 	: nombre(nombre), ciudad(ciudad), pais(pais) {}
 
+Aeropuerto::~Aeropuerto()
+{
+
+}
+
 // AEROPUERTO PUBLICO
 
 AeropuertoPublico::AeropuertoPublico(std::string nombre, std::string ciudad, std::string pais, int subvencion)
 	: Aeropuerto(nombre, ciudad, pais), subvencion(subvencion) {}
 
+void AeropuertoPublico::funcionPublica()
+{
+	
+}
+
 // AEROPUERTO PRIVADO
 
 AeropuertoPrivado::AeropuertoPrivado(std::string nombre, std::string ciudad, std::string pais)
 	: Aeropuerto(nombre, ciudad, pais) {}
+
+void AeropuertoPrivado::funcionPrivada()
+{
+
+}
