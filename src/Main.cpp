@@ -9,8 +9,8 @@ static std::vector<Pasajero> pasajeros;
 
 void Opciones()
 {
-	std::cout << "\n\n1. Añadir\n"
-		<< "2. Ver aeropuertos" 
+	std::cout << "\n\n1. Anadir\n"
+		<< "2. Ver aeropuertos"
 		<< "> ";
 }
 
@@ -24,7 +24,7 @@ int main()
 		switch (op)
 		{
 		case 1:
-			bhvr::Anadir(aeropuertos, companias, vuelos, pasajeros);
+			anadir::Anadir(aeropuertos, companias, vuelos, pasajeros);
 			break;
 		case 2:
 			bhvr::PrintAirports(aeropuertos);

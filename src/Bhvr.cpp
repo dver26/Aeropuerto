@@ -2,28 +2,51 @@
 #include <string>
 #include "Bhvr.h"
 
-std::string bhvr::aMinuscula(std::string cadena) 
-{
-	for (int i = 0; i < cadena.length(); i++) cadena[i] = tolower(cadena[i]);
-	return cadena;
-}
-
-
 void bhvr::PrintAirports(std::vector<Aeropuerto*>& aeropuertos)
 {
 	for (Aeropuerto* aeropuerto : aeropuertos)
 	{
-		std::cout << *aeropuerto << std::endl;
+		if (AeropuertoPublico* ap = dynamic_cast<AeropuertoPublico*>(aeropuerto))
+		{
+			std::cout << *ap << std::endl;
+		}
+		else if (AeropuertoPrivado* apv = dynamic_cast<AeropuertoPrivado*>(aeropuerto))
+		{
+			std::cout << *apv << std::endl;
+		}
 	}
 }
 
-std::ostream& bhvr::operator<< (std::ostream& out, Aeropuerto& a)
+void bhvr::PrintAeropuetosPrivados(std::vector<Aeropuerto*>& aeropuertos)
 {
-	std::cout << "Aeropuerto: " << a.nombre << ", de " << a.ciudad << " en " << a.pais;
+	for (Aeropuerto* aeropuerto : aeropuertos)
+	{
+		if (AeropuertoPrivado* apv = dynamic_cast<AeropuertoPrivado*>(aeropuerto))
+		{
+			std::cout << *apv << std::endl;
+		}
+	}
+}
+
+std::ostream& bhvr::operator<< (std::ostream& out, AeropuertoPrivado& a)
+{
+	out << "\n\tAeropuerto: " << a.nombre << ", de " << a.ciudad << " en " << a.pais;
+	out << "\n\tEste aeropuerto es privado y tiene los siguientes patrocinadores: ";
+	for (std::string patrocinador : a.patrocinadores)
+	{
+		out << patrocinador << "\n";
+	}
 	return out;
 }
 
-void bhvr::Anadir(std::vector<Aeropuerto*>& aeropuertos, std::vector<Compania>& companias, std::vector<Vuelo>& vuelos, std::vector<Pasajero>& pasajero)
+std::ostream& bhvr::operator<< (std::ostream& out, AeropuertoPublico& a)
+{
+	out << "\nAeropuerto: " << a.nombre << ", de " << a.ciudad << " en " << a.pais;
+	out << "\nEste aeropuerto es publico y tiene una subvencion de: " << a.subvencion;
+	return out;
+}
+
+void anadir::Anadir(std::vector<Aeropuerto*>& aeropuertos, std::vector<Compania>& companias, std::vector<Vuelo>& vuelos, std::vector<Pasajero>& pasajero)
 {
 	int op;
 	std::cout << "Que quieres anadir?\n"
@@ -31,6 +54,7 @@ void bhvr::Anadir(std::vector<Aeropuerto*>& aeropuertos, std::vector<Compania>& 
 		<< "2. Compania\n"
 		<< "3. Vuelo\n"
 		<< "4. Pasajero\n"
+		<< "5. Patrocinador a Aeropuerto Privado\n"
 		<< "> ";
 
 	std::cin >> op;
@@ -39,13 +63,18 @@ void bhvr::Anadir(std::vector<Aeropuerto*>& aeropuertos, std::vector<Compania>& 
 	switch (op)
 	{
 	case 1:
-		bhvr::AnadirAeropuerto(aeropuertos);
+		anadir::AnadirAeropuerto(aeropuertos);
+		break;
+	case 5:
+		anadir::AnadirPatrocinador(aeropuertos);
+		break;
 	}
 }
 
-void bhvr::AnadirAeropuerto(std::vector<Aeropuerto*>& aeropuertos)
+void anadir::AnadirAeropuerto(std::vector<Aeropuerto*>& aeropuertos)
 {
 	std::string nombre, ciudad, pais, publicopriv;
+	int subvencion;
 
 	std::cout << "Nombre del aeropuerto: ";
 	std::getline(std::cin, nombre);
@@ -59,5 +88,50 @@ void bhvr::AnadirAeropuerto(std::vector<Aeropuerto*>& aeropuertos)
 	std::cout << "Va a ser publico o privado?: ";
 	std::getline(std::cin, publicopriv);
 
-	std::string pp = aMinuscula(publicopriv);
+	std::string pp = utils::aMinuscula(publicopriv);
+
+	if (pp == "publico")
+	{
+		std::cout << "Ingresa la subvencion de este aeropuerto: ";
+		std::cin >> subvencion;
+		aeropuertos.emplace_back(new AeropuertoPublico(nombre, ciudad, pais, subvencion));
+	}
+	else if (pp == "privado")
+	{
+		std::cout << "Se va a crear un aeropuerto privado, después podras añadir patrocinadores" << std::endl;
+		aeropuertos.emplace_back(new AeropuertoPrivado(nombre, ciudad, pais));
+	}
+	else 
+	{
+		std::cout << "El tipo de aeropuerto que has introducido no es correcto" << std::endl;
+	}
+}
+
+void anadir::AnadirPatrocinador(std::vector<Aeropuerto*>& aeropuertos)
+{
+	std::string nombreA, nombreP;
+	bhvr::PrintAeropuetosPrivados(aeropuertos);
+
+	std::cout << "A que aeropuerto quieres anadirlo?: ";
+	std::getline(std::cin, nombreA);
+
+	std::cout << "Nombre del patrocinador: " << std::endl;
+	std::getline(std::cin, nombreP);
+
+	for (Aeropuerto* aeropuerto : aeropuertos)
+	{
+		if (AeropuertoPrivado* apv = dynamic_cast<AeropuertoPrivado*>(aeropuerto))
+		{
+			if (apv->nombre == nombreA)
+			{
+				apv->patrocinadores.push_back(nombreP);
+			}
+		}
+	}
+}
+
+std::string utils::aMinuscula(std::string cadena)
+{
+	for (int i = 0; i < cadena.length(); i++) cadena[i] = tolower(cadena[i]);
+	return cadena;
 }
