@@ -94,6 +94,7 @@ void anadir::AnadirAeropuerto(std::vector<Aeropuerto*>& aeropuertos)
 	{
 		std::cout << "Ingresa la subvencion de este aeropuerto: ";
 		std::cin >> subvencion;
+		std::cin.ignore();
 		aeropuertos.emplace_back(new AeropuertoPublico(nombre, ciudad, pais, subvencion));
 	}
 	else if (pp == "privado")
@@ -128,6 +129,8 @@ void anadir::AnadirPatrocinador(std::vector<Aeropuerto*>& aeropuertos)
 			}
 		}
 	}
+
+	std::cout << "Hola" << std::endl;
 }
 
 std::string utils::aMinuscula(std::string cadena)

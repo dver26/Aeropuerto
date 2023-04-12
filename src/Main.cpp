@@ -10,7 +10,7 @@ static std::vector<Pasajero> pasajeros;
 void Opciones()
 {
 	std::cout << "\n\n1. Anadir\n"
-		<< "2. Ver aeropuertos"
+		<< "2. Ver aeropuertos\n"
 		<< "> ";
 }
 
