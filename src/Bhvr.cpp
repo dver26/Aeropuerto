@@ -2,36 +2,36 @@
 #include <string>
 #include "Bhvr.h"
 
-void bhvr::PrintAirports(std::vector<Aeropuerto*>& aeropuertos)
+void print::PrintAirports(std::vector<Aeropuerto*>& aeropuertos)
 {
 	for (Aeropuerto* aeropuerto : aeropuertos)
 	{
 		if (AeropuertoPublico* ap = dynamic_cast<AeropuertoPublico*>(aeropuerto))
 		{
-			std::cout << *ap << std::endl;
+			sbc::operator<<(std::cout, *ap);
 		}
 		else if (AeropuertoPrivado* apv = dynamic_cast<AeropuertoPrivado*>(aeropuerto))
 		{
-			std::cout << *apv << std::endl;
+			sbc::operator<<(std::cout, *apv);
 		}
 	}
 }
 
-void bhvr::PrintAeropuetosPrivados(std::vector<Aeropuerto*>& aeropuertos)
+void print::PrintAeropuetosPrivados(std::vector<Aeropuerto*>& aeropuertos)
 {
 	for (Aeropuerto* aeropuerto : aeropuertos)
 	{
 		if (AeropuertoPrivado* apv = dynamic_cast<AeropuertoPrivado*>(aeropuerto))
 		{
-			std::cout << *apv << std::endl;
+			sbc::operator<<(std::cout, *apv);
 		}
 	}
 }
 
-std::ostream& bhvr::operator<< (std::ostream& out, AeropuertoPrivado& a)
+std::ostream& sbc::operator<< (std::ostream& out, AeropuertoPrivado& a)
 {
 	out << "\n\tAeropuerto: " << a.nombre << ", de " << a.ciudad << " en " << a.pais;
-	out << "\n\tEste aeropuerto es privado y tiene los siguientes patrocinadores: ";
+	out << "\n\tEste aeropuerto es privado y tiene los siguientes patrocinadores: \n";
 	for (std::string patrocinador : a.patrocinadores)
 	{
 		out << patrocinador << "\n";
@@ -39,7 +39,7 @@ std::ostream& bhvr::operator<< (std::ostream& out, AeropuertoPrivado& a)
 	return out;
 }
 
-std::ostream& bhvr::operator<< (std::ostream& out, AeropuertoPublico& a)
+std::ostream& sbc::operator<< (std::ostream& out, AeropuertoPublico& a)
 {
 	out << "\nAeropuerto: " << a.nombre << ", de " << a.ciudad << " en " << a.pais;
 	out << "\nEste aeropuerto es publico y tiene una subvencion de: " << a.subvencion;
@@ -49,7 +49,7 @@ std::ostream& bhvr::operator<< (std::ostream& out, AeropuertoPublico& a)
 void anadir::Anadir(std::vector<Aeropuerto*>& aeropuertos, std::vector<Compania>& companias, std::vector<Vuelo>& vuelos, std::vector<Pasajero>& pasajero)
 {
 	int op;
-	std::cout << "Que quieres anadir?\n"
+	std::cout << "\nQue quieres anadir?\n"
 		<< "1. Aeropuerto\n"
 		<< "2. Compania\n"
 		<< "3. Vuelo\n"
@@ -64,6 +64,9 @@ void anadir::Anadir(std::vector<Aeropuerto*>& aeropuertos, std::vector<Compania>
 	{
 	case 1:
 		anadir::AnadirAeropuerto(aeropuertos);
+		break;
+	case 2:
+		anadir::AnadirCompania(aeropuertos, companias);
 		break;
 	case 5:
 		anadir::AnadirPatrocinador(aeropuertos);
@@ -111,7 +114,7 @@ void anadir::AnadirAeropuerto(std::vector<Aeropuerto*>& aeropuertos)
 void anadir::AnadirPatrocinador(std::vector<Aeropuerto*>& aeropuertos)
 {
 	std::string nombreA, nombreP;
-	bhvr::PrintAeropuetosPrivados(aeropuertos);
+	print::PrintAeropuetosPrivados(aeropuertos);
 
 	std::cout << "A que aeropuerto quieres anadirlo?: ";
 	std::getline(std::cin, nombreA);
@@ -131,6 +134,26 @@ void anadir::AnadirPatrocinador(std::vector<Aeropuerto*>& aeropuertos)
 	}
 
 	std::cout << "Hola" << std::endl;
+}
+
+void anadir::AnadirCompania(std::vector<Aeropuerto*> aeropuertos, std::vector<Compania> companias)
+{
+	std::string nombreA, nombreC;
+	std::cout << "\nAeropuertos:" << std::endl;
+	print::PrintAirports(aeropuertos);
+	std::cout << "\n >";
+	std::cin.ignore();
+	std::getline(std::cin, nombreA);
+	std::cout << "Ahora di el nombre de la compania que vas a anadir: " << std::endl;
+	std::getline(std::cin, nombreC);
+	for (Aeropuerto* aeropuerto : aeropuertos)
+	{
+		if (aeropuerto->nombre == nombreA)
+		{
+			aeropuerto->companias.emplace_back(nombreC);
+			companias.emplace_back(aeropuerto->companias.back());
+		}
+	}
 }
 
 std::string utils::aMinuscula(std::string cadena)

@@ -27,7 +27,7 @@ int main()
 			anadir::Anadir(aeropuertos, companias, vuelos, pasajeros);
 			break;
 		case 2:
-			bhvr::PrintAirports(aeropuertos);
+			print::PrintAirports(aeropuertos);
 			break;
 		default:
 			std::cout << "Lo siento, número incorrecto" << std::endl;

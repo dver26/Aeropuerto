@@ -32,7 +32,9 @@ public:
 class Aeropuerto
 {
 public:
+public:
 	std::string nombre, ciudad, pais;
+	std::vector<Compania> companias;
 
 	Aeropuerto(std::string nombre, std::string ciudad, std::string pais);
 	virtual ~Aeropuerto();

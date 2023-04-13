@@ -22,12 +22,12 @@ Compania::Compania(std::string nombre)
 // AEROPUERTO
 
 Aeropuerto::Aeropuerto(std::string nombre, std::string ciudad, std::string pais)
-	: nombre(nombre), ciudad(ciudad), pais(pais) {}
-
-Aeropuerto::~Aeropuerto()
+	: nombre(nombre), ciudad(ciudad), pais(pais)
 {
-
+	companias.reserve(2);
 }
+
+Aeropuerto::~Aeropuerto() {}
 
 // AEROPUERTO PUBLICO
 
