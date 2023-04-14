@@ -21,6 +21,7 @@ namespace anadir
 	void AnadirPatrocinador(std::vector<Aeropuerto*>& aeropuertos);
 	
 	void AnadirCompania(std::vector<Aeropuerto*> aeropuertos, std::vector<Compania> companias);
+	void AnadirVuelo(std::vector<Aeropuerto*>& aeropuertos, std::vector<Compania>& companias, std::vector<Vuelo>& vuelos);
 }
 
 namespace utils
