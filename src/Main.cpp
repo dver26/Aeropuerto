@@ -24,10 +24,10 @@ int main()
 		switch (op)
 		{
 		case 1:
-			anadir::Anadir(aeropuertos, companias, vuelos, pasajeros);
+			
 			break;
 		case 2:
-			print::PrintAirports(aeropuertos);
+			
 			break;
 		default:
 			std::cout << "Lo siento, número incorrecto" << std::endl;
