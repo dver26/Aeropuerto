@@ -9,7 +9,7 @@ namespace sbc
 
 namespace print
 {
-	
+	void printAirports(std::vector<Aeropuerto*> aeropuertos);
 }
 
 namespace anadir
